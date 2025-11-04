@@ -1,6 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+
   <modelVersion>4.0.0</modelVersion>
 
   <groupId>dev.khoa</groupId>
@@ -17,22 +18,21 @@
 
   <repositories>
     <repository>
-      <id>papermc-repo</id>
+      <id>papermc</id>
       <url>https://repo.papermc.io/repository/maven-public/</url>
-    </repository>
-    <repository>
-      <id>sonatype</id>
-      <url>https://oss.sonatype.org/content/groups/public/</url>
     </repository>
   </repositories>
 
   <dependencies>
+    <!-- Paper API -->
     <dependency>
       <groupId>io.papermc.paper</groupId>
       <artifactId>paper-api</artifactId>
       <version>${paper.api.version}</version>
       <scope>provided</scope>
     </dependency>
+
+    <!-- Gson -->
     <dependency>
       <groupId>com.google.code.gson</groupId>
       <artifactId>gson</artifactId>
@@ -42,6 +42,8 @@
 
   <build>
     <plugins>
+
+      <!-- Shade plugin to produce fat jar -->
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-shade-plugin</artifactId>
@@ -49,23 +51,28 @@
         <executions>
           <execution>
             <phase>package</phase>
-            <goals><goal>shade</goal></goals>
+            <goals>
+              <goal>shade</goal>
+            </goals>
             <configuration>
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <minimizeJar>true</minimizeJar>
-              <!-- relocation Gson để tránh xung đột -->
+              <shadedArtifactAttached>true</shadedArtifactAttached>
+
+              <!-- Avoid gson conflict -->
               <relocations>
                 <relocation>
                   <pattern>com.google.gson</pattern>
                   <shadedPattern>dev.khoa.lifecyclewebhook.libs.gson</shadedPattern>
                 </relocation>
               </relocations>
-              <!-- xuất file có hậu tố -shaded để Actions bắt được -->
-              <shadedArtifactAttached>true</shadedArtifactAttached>
+
             </configuration>
           </execution>
         </executions>
       </plugin>
+
     </plugins>
   </build>
+
 </project>
