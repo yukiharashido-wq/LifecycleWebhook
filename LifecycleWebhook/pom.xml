@@ -2,16 +2,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
+
   <groupId>dev.khoa</groupId>
   <artifactId>lifecycle-webhook</artifactId>
   <version>1.0.0</version>
   <name>LifecycleWebhook</name>
+
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>17</maven.compiler.source>
     <maven.compiler.target>17</maven.compiler.target>
     <paper.api.version>1.19.2-R0.1-SNAPSHOT</paper.api.version>
   </properties>
+
   <repositories>
     <repository>
       <id>papermc-repo</id>
@@ -22,6 +25,7 @@
       <url>https://oss.sonatype.org/content/groups/public/</url>
     </repository>
   </repositories>
+
   <dependencies>
     <dependency>
       <groupId>io.papermc.paper</groupId>
@@ -35,6 +39,7 @@
       <version>2.11.0</version>
     </dependency>
   </dependencies>
+
   <build>
     <plugins>
       <plugin>
@@ -48,12 +53,15 @@
             <configuration>
               <createDependencyReducedPom>false</createDependencyReducedPom>
               <minimizeJar>true</minimizeJar>
+              <!-- relocation Gson để tránh xung đột -->
               <relocations>
                 <relocation>
                   <pattern>com.google.gson</pattern>
                   <shadedPattern>dev.khoa.lifecyclewebhook.libs.gson</shadedPattern>
                 </relocation>
               </relocations>
+              <!-- xuất file có hậu tố -shaded để Actions bắt được -->
+              <shadedArtifactAttached>true</shadedArtifactAttached>
             </configuration>
           </execution>
         </executions>
@@ -61,21 +69,3 @@
     </plugins>
   </build>
 </project>
-<build>
-  <plugins>
-    <plugin>
-      <groupId>org.apache.maven.plugins</groupId>
-      <artifactId>maven-shade-plugin</artifactId>
-      <version>3.4.1</version>
-      <executions>
-        <execution>
-          <phase>package</phase>
-          <goals>
-            <goal>shade</goal>
-          </goals>
-        </execution>
-      </executions>
-    </plugin>
-  </plugins>
-</build>
-
