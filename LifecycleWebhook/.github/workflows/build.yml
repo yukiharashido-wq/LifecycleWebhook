@@ -24,4 +24,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: lifecycle-webhook
-          path: LifecycleWebhook/target/*-shaded.jar
+          path: target/*-shaded.jar
+
