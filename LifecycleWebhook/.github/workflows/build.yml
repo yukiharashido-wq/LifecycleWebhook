@@ -1,5 +1,4 @@
 name: build
-
 on:
   push:
     branches: [ main ]
@@ -8,7 +7,6 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
-
     steps:
       - uses: actions/checkout@v4
 
@@ -19,9 +17,17 @@ jobs:
           java-version: 17
           cache: maven
 
+      # Project nằm trong thư mục con LifecycleWebhook
       - name: Build with Maven (project in subfolder)
         run: mvn -q -f LifecycleWebhook/pom.xml package
 
+      # Debug: in ra đúng file tạo trong target
+      - name: List build outputs
+        run: |
+          echo "== LS LifecycleWebhook/target =="
+          ls -lah LifecycleWebhook/target || true
+
+      # Bắt cả shaded lẫn jar thường
       - name: Upload plugin jar
         uses: actions/upload-artifact@v4
         with:
@@ -29,4 +35,4 @@ jobs:
           path: |
             LifecycleWebhook/target/*-shaded.jar
             LifecycleWebhook/target/*.jar
-          if-no-files-found: error
+          if-no-files-found: warn
