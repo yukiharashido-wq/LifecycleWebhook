@@ -1,0 +1,18 @@
+webhook_url: "https://discord.com/api/webhooks/PUT_YOURS_HERE"
+
+# theo dõi tất cả plugin hay chỉ danh sách bên dưới
+watch_all_plugins: true
+watch_list:
+  - DiscordSRV
+  - ViaVersion
+
+# màu embed (decimal)
+colors:
+  online: 65280        # green
+  offline: 16711680    # red
+  plugin_enable: 3447003
+  plugin_disable: 15158332
+  plugin_update: 15844367
+
+include_server_version: true
+include_tps: true

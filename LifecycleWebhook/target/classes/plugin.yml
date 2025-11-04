@@ -1,0 +1,6 @@
+name: LifecycleWebhook
+main: dev.khoa.lifecyclewebhook.LifecycleWebhook
+version: 1.0.0
+api-version: 1.19
+author: Khoa
+description: Send Discord webhook for server lifecycle and plugin updates
